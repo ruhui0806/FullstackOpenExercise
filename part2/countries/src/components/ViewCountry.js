@@ -28,7 +28,7 @@ const ViewCountry = ({thisCountry}) => {
         </ul>
         <img src={thisCountry.flags.png} alt="Flag of the current country" />
         <h2>Weather in {thisCountry.capital}</h2>
-        <h3>temperature: {weather.temperature}</h3> 
+        <h3>temperature: {weather.temperature} Celcius</h3> 
         <img src={weather.weather_icons} alt="Weather in current capital" />
         <h3>wind: {weather.wind_speed}</h3>
     </>
