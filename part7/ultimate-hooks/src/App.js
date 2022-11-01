@@ -1,25 +1,39 @@
-import { useState, useEffect } from "react"
-import axios from "axios"
+import {useState, useEffect} from 'react'
+import axios from 'axios'
 
 const useField = (type) => {
-    const [value, setValue] = useState("")
+    const [value, setValue] = useState('')
 
     const onChange = (event) => {
         setValue(event.target.value)
+    }
+    const onReset = () => {
+        setValue('')
     }
 
     return {
         type,
         value,
         onChange,
+        onReset,
     }
 }
 
 const useResource = (baseUrl) => {
     const [resources, setResources] = useState([])
+    //   useEffect(() => {
+    // axios
+    //   .get(baseUrl)
+    //   .then(response => {
+    //     setResources(response.data)
+    //   })
+    //   }, [setResources, baseUrl])
+
     useEffect(() => {
-        axios.get(baseUrl).then((response) => setResources(response.data), [])
-    })
+        axios.get(baseUrl).then((response) => {
+            setResources(response.data)
+        })
+    }, [baseUrl])
 
     const create = async (resource) => {
         const response = await axios.post(baseUrl, resource)
@@ -34,23 +48,26 @@ const useResource = (baseUrl) => {
 }
 
 const App = () => {
-    const content = useField("text")
-    const name = useField("text")
-    const number = useField("text")
+    const content = useField('text')
+    const name = useField('text')
+    const number = useField('text')
 
-    const [notes, noteService] = useResource("http://localhost:3005/notes")
+    const [notes, noteService] = useResource('http://localhost:3005/notes')
     const [persons, personService] = useResource(
-        "http://localhost:3005/persons"
+        'http://localhost:3005/persons'
     )
 
     const handleNoteSubmit = (event) => {
         event.preventDefault()
-        noteService.create({ content: content.value })
+        noteService.create({content: content.value})
+        content.onReset()
     }
 
     const handlePersonSubmit = (event) => {
         event.preventDefault()
-        personService.create({ name: name.value, number: number.value })
+        personService.create({name: name.value, number: number.value})
+        name.onReset()
+        number.onReset()
     }
 
     return (
