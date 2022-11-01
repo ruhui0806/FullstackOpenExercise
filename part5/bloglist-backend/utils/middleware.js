@@ -52,6 +52,35 @@ const userExtractor = async (request, response, next) => {
     return next()
 }
 
+////combine token extractor with user Extractor:
+// const userExtractor = async (request, response, next) => {
+//     const authorization = request.get('authorization')
+//     if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
+//         token = authorization.substring(7)
+//     }
+//     const decodedToken = jwt.verify(token, process.env.TOKEN_SECRET)
+//     if (!decodedToken.id) {
+//         return response.status(401).json({ error: 'token missing or invalid' })
+//     }
+//     const user = await User.findById(decodedToken.id)
+//     request.user = user
+//     next()
+//     return
+// }
+// const token = request.token
+// const decodedToken = jwt.verify(token, process.env.SECRET)
+// if (!token || !decodedToken.id) {
+//     return response.status(401).json({ error: 'token missing or invalid' })
+// }
+
+// else if (body.title === undefined || body.url === undefined) {
+//     return response.status(400).json({ error: 'content missing' })
+// }
+
+// const user = await User.findById(decodedToken.id)
+
+
+
 const unknownEndpoint = (request, response) => {
     response.status(404).send({ error: 'unknown endpoint' })
 }
