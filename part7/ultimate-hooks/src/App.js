@@ -21,7 +21,7 @@ const useField = (type) => {
 
 const useResource = (baseUrl) => {
     const [resources, setResources] = useState([])
-
+    //resources can be the notes or the persons
     useEffect(() => {
         axios.get(baseUrl).then((response) => {
             setResources(response.data)
