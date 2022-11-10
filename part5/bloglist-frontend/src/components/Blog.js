@@ -1,19 +1,10 @@
 // import React from 'react'
 import React, { useState } from 'react'
+// import PropTypes from 'prop-types'
 import PropTypes from 'prop-types'
 // import {useState} from 'react'
 
-const Blog = ({
-    blog,
-    addLikes,
-    removeBlog,
-    // toggleDetailsVisibility,
-    // hiddenBlogDetails,
-    // showingBlogDetails,
-}) => {
-    // const [blogDetailVisible, setBlogDetailVisible] = useState(false)
-    //the state above is moved to the App.js in order to testing the onClick event can trigger a function
-
+const Blog = ({ blog, addLikes, removeBlog }) => {
     const blogStyle = {
         paddingTop: 10,
         paddingLeft: 2,
