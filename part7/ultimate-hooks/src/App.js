@@ -21,14 +21,7 @@ const useField = (type) => {
 
 const useResource = (baseUrl) => {
     const [resources, setResources] = useState([])
-    //   useEffect(() => {
-    // axios
-    //   .get(baseUrl)
-    //   .then(response => {
-    //     setResources(response.data)
-    //   })
-    //   }, [setResources, baseUrl])
-
+    //resources can be the notes or the persons
     useEffect(() => {
         axios.get(baseUrl).then((response) => {
             setResources(response.data)

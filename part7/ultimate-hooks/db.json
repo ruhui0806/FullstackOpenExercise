@@ -5,7 +5,7 @@
       "id": 1
     },
     {
-      "content": "the best featrure ever <3",
+      "content": "the best feature ever <3",
       "id": 2
     },
     {
@@ -15,6 +15,10 @@
     {
       "content": "create new note-onReset",
       "id": 4
+    },
+    {
+      "content": "create test before moving to part7c",
+      "id": 5
     }
   ],
   "persons": [
@@ -27,21 +31,6 @@
       "name": "kaltsoon",
       "number": "045-2323456",
       "id": 2
-    },
-    {
-      "name": "ruhui",
-      "number": "014423974",
-      "id": 3
-    },
-    {
-      "name": "ruhui",
-      "number": "014423974",
-      "id": 4
-    },
-    {
-      "name": "onReset",
-      "number": "014423974",
-      "id": 5
     }
   ]
 }
