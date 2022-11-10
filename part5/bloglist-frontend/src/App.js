@@ -14,7 +14,7 @@ const App = () => {
     const [message, setMessage] = useState(null)
     const [loginVisible, setLoginVisible] = useState(false)
     const [blogVisible, setBlogVisible] = useState(false)
-    // const [blogDetailVisible, setBlogDetailVisible] = useState(false)
+
     useEffect(() => {
         blogService.getAll().then((blogs) => setBlogs(blogs))
     }, [])
