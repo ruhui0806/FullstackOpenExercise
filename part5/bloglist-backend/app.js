@@ -26,7 +26,6 @@
 // //add a json-parser function, help access the data in the app.post function. app.use()is a middleware function
 // app.use(express.json())
 // app.use(middleware.requestLogger)
-// app.use('/api/notes', notesRouter)
 // app.use(middleware.unknownEndpoint)
 // app.use(middleware.errorHandler)
 const express = require('express')
@@ -44,7 +43,7 @@ require('express-async-errors')
 const mongoUrl = config.MONGODB_URI
 mongoose.connect(mongoUrl)
     .then(() => console.log('connected to MongoDB'))
-    .catch(error => console.log('error connecting to MongoDB:', error.message()))
+    .catch(error => console.log('error connecting to MongoDB:', error.message))
 
 app.use(cors())
 app.use(express.static('build'))
@@ -54,6 +53,7 @@ app.use(middleware.requestLogger)
 app.use(middleware.tokenExtractor)
 app.use(middleware.userExtractor)
 
+app.use('/', blogRouter)
 app.use('/api/login', loginRouter)
 app.use('/api/users', userRouter)
 app.use('/api/blogs', blogRouter)
