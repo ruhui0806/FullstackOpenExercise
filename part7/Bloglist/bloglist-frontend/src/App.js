@@ -5,18 +5,25 @@ import loginService from './services/login'
 import Notification from './components/Notification'
 import LoginForm from './components/LoginForm'
 import BlogForm from './components/BlogForm'
+import { useSelector, useDispatch } from 'react-redux'
+import { setMessage } from './reducers/notificationReducer'
+import { setBlogs, appendBlog } from './reducers/blogReducer'
 
 const App = () => {
-    const [blogs, setBlogs] = useState([])
+    // const [blogs, setBlogs] = useState([])
+    // const [message, setMessage] = useState(null)
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [user, setUser] = useState(null)
-    const [message, setMessage] = useState(null)
     const [loginVisible, setLoginVisible] = useState(false)
     const [blogVisible, setBlogVisible] = useState(false)
 
+    const dispatch = useDispatch()
+    const blogs = useSelector((state) => state.blogs)
+    const message = useSelector((state) => state.message)
+
     useEffect(() => {
-        blogService.getAll().then((blogs) => setBlogs(blogs))
+        blogService.getAll().then((blogs) => dispatch(setBlogs(blogs)))
     }, [])
 
     useEffect(() => {
@@ -45,9 +52,9 @@ const App = () => {
             setUsername('')
             setPassword('')
         } catch (exception) {
-            setMessage('Wrong username or password')
+            dispatch(setMessage('Wrong username or password'))
             setTimeout(() => {
-                setMessage(null)
+                dispatch(setMessage(null))
             }, 100000)
         }
     }
@@ -97,14 +104,16 @@ const App = () => {
 
     const addBlog = (blogObject) => {
         blogService.createNew(blogObject).then((returnedBlog) => {
-            setBlogs(blogs.concat(returnedBlog))
+            dispatch(appendBlog(returnedBlog))
         })
     }
 
     const addBlogNotification = (blogObject) => {
-        setMessage(`a new blog ${blogObject.title} by ${blogObject.author}`)
+        dispatch(
+            setMessage(`a new blog ${blogObject.title} by ${blogObject.author}`)
+        )
         setTimeout(() => {
-            setMessage(null)
+            dispatch(setMessage(null))
         }, 10000)
     }
 
@@ -113,8 +122,10 @@ const App = () => {
         const changedBlog = { ...blog, likes: blog.likes + 1 }
 
         blogService.update(id, changedBlog).then((returnedBlog) => {
-            setBlogs(
-                blogs.map((blog) => (blog.id !== id ? blog : returnedBlog))
+            dispatch(
+                setBlogs(
+                    blogs.map((blog) => (blog.id !== id ? blog : returnedBlog))
+                )
             )
         })
     }
@@ -124,10 +135,18 @@ const App = () => {
         if (window.confirm(`Delete ${blog.title} ?`)) {
             blogService
                 .remove(id)
-                .then(setBlogs(blogs.filter((blog) => blog.id !== id)))
-                .then(setMessage(`Remove blog ${blog.title} by ${blog.author}`))
+                .then(
+                    dispatch(setBlogs(blogs.filter((blog) => blog.id !== id)))
+                )
+                .then(
+                    dispatch(
+                        setMessage(
+                            `Remove blog ${blog.title} by ${blog.author}`
+                        )
+                    )
+                )
             setTimeout(() => {
-                setMessage(null)
+                dispatch(setMessage(null))
             }, 10000)
         }
     }
