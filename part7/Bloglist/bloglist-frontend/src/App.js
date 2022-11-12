@@ -7,11 +7,10 @@ import LoginForm from './components/LoginForm'
 import BlogForm from './components/BlogForm'
 import { useSelector, useDispatch } from 'react-redux'
 import { setMessage } from './reducers/notificationReducer'
-import { setBlogs, appendBlog } from './reducers/blogReducer'
 
 const App = () => {
-    // const [blogs, setBlogs] = useState([])
     // const [message, setMessage] = useState(null)
+    const [blogs, setBlogs] = useState([])
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [user, setUser] = useState(null)
@@ -19,11 +18,11 @@ const App = () => {
     const [blogVisible, setBlogVisible] = useState(false)
 
     const dispatch = useDispatch()
-    const blogs = useSelector((state) => state.blogs)
+    // const blogs = useSelector((state) => state.blogs)
     const message = useSelector((state) => state.message)
 
     useEffect(() => {
-        blogService.getAll().then((blogs) => dispatch(setBlogs(blogs)))
+        blogService.getAll().then((blogs) => setBlogs(blogs))
     }, [])
 
     useEffect(() => {
@@ -104,7 +103,7 @@ const App = () => {
 
     const addBlog = (blogObject) => {
         blogService.createNew(blogObject).then((returnedBlog) => {
-            dispatch(appendBlog(returnedBlog))
+            setBlogs(blogs.concat(returnedBlog))
         })
     }
 
@@ -114,7 +113,7 @@ const App = () => {
         )
         setTimeout(() => {
             dispatch(setMessage(null))
-        }, 10000)
+        }, 5000)
     }
 
     const updateLikes = (id) => {
@@ -122,10 +121,8 @@ const App = () => {
         const changedBlog = { ...blog, likes: blog.likes + 1 }
 
         blogService.update(id, changedBlog).then((returnedBlog) => {
-            dispatch(
-                setBlogs(
-                    blogs.map((blog) => (blog.id !== id ? blog : returnedBlog))
-                )
+            setBlogs(
+                blogs.map((blog) => (blog.id !== id ? blog : returnedBlog))
             )
         })
     }
@@ -135,9 +132,7 @@ const App = () => {
         if (window.confirm(`Delete ${blog.title} ?`)) {
             blogService
                 .remove(id)
-                .then(
-                    dispatch(setBlogs(blogs.filter((blog) => blog.id !== id)))
-                )
+                .then(setBlogs(blogs.filter((blog) => blog.id !== id)))
                 .then(
                     dispatch(
                         setMessage(
@@ -147,7 +142,7 @@ const App = () => {
                 )
             setTimeout(() => {
                 dispatch(setMessage(null))
-            }, 10000)
+            }, 5000)
         }
     }
 
