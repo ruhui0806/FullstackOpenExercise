@@ -29,9 +29,11 @@ export const { setUser, logOut } = userSlice.actions
 
 export const loginUser = ({ username, password }) => {
     return async (dispatch) => {
-        const user = await loginService.login({ username, password })
+        const user = await loginService.login({
+            username,
+            password,
+        })
         dispatch(setUser(user))
-        console.log(user)
         blogService.setToken(user.token)
         window.localStorage.setItem('loggedBlogappUser', JSON.stringify(user))
     }

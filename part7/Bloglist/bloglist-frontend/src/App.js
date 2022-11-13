@@ -16,7 +16,7 @@ import {
 } from './reducers/blogReducer'
 // import { loggedUser } from './reducers/userReducer'
 
-import { setUser, loggedUser, loginUser } from './reducers/userReducer'
+import { setUser, logOut, loggedUser, loginUser } from './reducers/userReducer'
 const App = () => {
     // const [message, setMessage] = useState(null)
     // const [blogs, setBlogs] = useState([])
@@ -62,7 +62,7 @@ const App = () => {
     //             username,
     //             password,
     //         })
-    //         setUser(user)
+    //         dispatch(setUser(user))
     //         blogService.setToken(user.token)
     //         window.localStorage.setItem(
     //             'loggedBlogappUser',
@@ -80,16 +80,7 @@ const App = () => {
     const handleLogin = async (event) => {
         event.preventDefault()
         try {
-            const user = await loginService.login({
-                username,
-                password,
-            })
-            dispatch(setUser(user))
-            blogService.setToken(user.token)
-            window.localStorage.setItem(
-                'loggedBlogappUser',
-                JSON.stringify(user)
-            )
+            dispatch(loginUser({ username, password }))
             setUsername('')
             setPassword('')
         } catch (exception) {
@@ -100,8 +91,12 @@ const App = () => {
         }
     }
 
+    // const handleLogout = () => {
+    //     dispatch(setUser(null))
+    //     window.localStorage.removeItem('loggedBlogappUser')
+    // }
     const handleLogout = () => {
-        dispatch(setUser(null))
+        dispatch(logOut())
         window.localStorage.removeItem('loggedBlogappUser')
     }
 
