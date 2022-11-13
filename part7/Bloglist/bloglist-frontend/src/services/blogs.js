@@ -21,8 +21,21 @@ const createNew = async (newObject) => {
     return response.data
 }
 
-const update = async (id, newObject) => {
-    const response = await axios.put(`${baseUrl}/${id}`, newObject, config)
+// const update = async (id, newObject) => {
+//     const response = await axios.put(`${baseUrl}/${id}`, newObject, config)
+//     return response.data
+// }
+const update = async (newObject) => {
+    const response = await axios.put(
+        `${baseUrl}/${newObject.id}`,
+        newObject,
+        config
+    )
+    return response.data
+}
+
+const findOne = async (id) => {
+    const response = await axios.get(`${baseUrl}/${id}`)
     return response.data
 }
 
@@ -31,4 +44,4 @@ const remove = async (id) => {
     return response.data
 }
 
-export default { getAll, createNew, setToken, update, remove }
+export default { getAll, createNew, setToken, update, remove, findOne }

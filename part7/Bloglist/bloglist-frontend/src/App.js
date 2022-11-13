@@ -7,10 +7,11 @@ import LoginForm from './components/LoginForm'
 import BlogForm from './components/BlogForm'
 import { useSelector, useDispatch } from 'react-redux'
 import { setMessage } from './reducers/notificationReducer'
+import { initializeBlogs, setBlogs } from './reducers/blogReducer'
 
 const App = () => {
     // const [message, setMessage] = useState(null)
-    const [blogs, setBlogs] = useState([])
+    // const [blogs, setBlogs] = useState([])
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [user, setUser] = useState(null)
@@ -18,12 +19,15 @@ const App = () => {
     const [blogVisible, setBlogVisible] = useState(false)
 
     const dispatch = useDispatch()
-    // const blogs = useSelector((state) => state.blogs)
+    const blogs = useSelector((state) => state.blogs)
     const message = useSelector((state) => state.message)
 
+    // useEffect(() => {
+    //     blogService.getAll().then((blogs) => setBlogs(blogs))
+    // }, [])
     useEffect(() => {
-        blogService.getAll().then((blogs) => setBlogs(blogs))
-    }, [])
+        dispatch(initializeBlogs())
+    })
 
     useEffect(() => {
         const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser')
@@ -180,7 +184,7 @@ const App = () => {
                 <button onClick={() => setBlogVisible(false)}>Cancel</button>
             </div>
 
-            {blogs.sort(SortBlogbyLikes).map((blog) => (
+            {[...blogs].sort(SortBlogbyLikes).map((blog) => (
                 <Blog
                     key={blog.id}
                     blog={blog}
