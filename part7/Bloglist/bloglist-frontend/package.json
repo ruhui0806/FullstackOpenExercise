@@ -19,10 +19,20 @@
         "cypress:open": "cypress open"
     },
     "eslintConfig": {
+        "root": true,
+        "env": {
+            "node": true
+        },
         "extends": [
-            "react-app",
-            "react-app/jest"
-        ]
+            "plugin:vue/essential",
+            "eslint:recommended"
+        ],
+        "parserOptions": {
+            "parser": "babel-eslint"
+        },
+        "rules": {
+            "no-unused-vars": "off"
+        }
     },
     "browserslist": {
         "production": [

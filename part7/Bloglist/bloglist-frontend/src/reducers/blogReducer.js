@@ -95,8 +95,8 @@ export const initializeBlogs = () => {
 
 export const addNew = (blogObject) => {
     return async (dispatch) => {
-        const newAnecdote = await blogService.createNew(blogObject)
-        dispatch(appendBlog(newAnecdote))
+        const newBlog = await blogService.createNew(blogObject)
+        dispatch(appendBlog(newBlog))
     }
 }
 

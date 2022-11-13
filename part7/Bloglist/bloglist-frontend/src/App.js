@@ -12,6 +12,7 @@ import {
     setBlogs,
     removeBlog,
     moreLike,
+    addNew,
 } from './reducers/blogReducer'
 
 const App = () => {
@@ -110,10 +111,13 @@ const App = () => {
         </>
     )
 
+    // const addBlog = (blogObject) => {
+    //     blogService.createNew(blogObject).then((returnedBlog) => {
+    //         setBlogs(blogs.concat(returnedBlog))
+    //     })
+    // }
     const addBlog = (blogObject) => {
-        blogService.createNew(blogObject).then((returnedBlog) => {
-            setBlogs(blogs.concat(returnedBlog))
-        })
+        dispatch(addNew(blogObject))
     }
 
     const addBlogNotification = (blogObject) => {
