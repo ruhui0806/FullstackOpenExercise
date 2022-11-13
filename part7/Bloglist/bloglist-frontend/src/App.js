@@ -15,6 +15,7 @@ import {
     addNew,
 } from './reducers/blogReducer'
 
+// import { setUser, loggedUser, loginUser } from './reducers/userReducer'
 const App = () => {
     // const [message, setMessage] = useState(null)
     // const [blogs, setBlogs] = useState([])
@@ -27,6 +28,11 @@ const App = () => {
     const dispatch = useDispatch()
     const blogs = useSelector((state) => state.blogs)
     const message = useSelector((state) => state.message)
+    // const user = useSelector((state) => state.user)
+
+    // useEffect(() => {
+    //     dispatch(setUser())
+    // }, [dispatch])
 
     // useEffect(() => {
     //     blogService.getAll().then((blogs) => setBlogs(blogs))
@@ -35,14 +41,30 @@ const App = () => {
         dispatch(initializeBlogs())
     }, [dispatch])
 
+    // useEffect(() => {
+    //     const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser')
+    //     console.log('loggedUserJSON: ', loggedUserJSON)
+    //     if (loggedUserJSON) {
+    //         console.log('-->', loggedUserJSON)
+    //         const user = JSON.parse(loggedUserJSON)
+    //         console.log('-->', user)
+    //         setUser(user)
+    //         blogService.setToken(user.token)
+    //     }
+    // }, [])
     useEffect(() => {
         const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser')
         if (loggedUserJSON) {
+            console.log('loggedUserJSON: ', loggedUserJSON)
             const user = JSON.parse(loggedUserJSON)
             setUser(user)
             blogService.setToken(user.token)
         }
     }, [])
+
+    // useEffect(() => {
+    //     dispatch(loggedUser())
+    // }, [dispatch])
 
     const handleLogin = async (event) => {
         event.preventDefault()
@@ -51,7 +73,6 @@ const App = () => {
                 username,
                 password,
             })
-
             setUser(user)
             blogService.setToken(user.token)
             window.localStorage.setItem(
@@ -64,9 +85,22 @@ const App = () => {
             dispatch(setMessage('Wrong username or password'))
             setTimeout(() => {
                 dispatch(setMessage(null))
-            }, 100000)
+            }, 5000)
         }
     }
+    // const handleLogin = async (event) => {
+    //     event.preventDefault()
+    //     try {
+    //         dispatch(loginUser({ username, password }))
+    //         setUsername('')
+    //         setPassword('')
+    //     } catch (exception) {
+    //         dispatch(setMessage('Wrong username or password'))
+    //         setTimeout(() => {
+    //             dispatch(setMessage(null))
+    //         }, 5000)
+    //     }
+    // }
 
     const handleLogout = () => {
         setUser(null)
