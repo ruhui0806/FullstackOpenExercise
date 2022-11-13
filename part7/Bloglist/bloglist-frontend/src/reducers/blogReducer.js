@@ -74,10 +74,14 @@ const blogSlice = createSlice({
         setBlogs(state, action) {
             return action.payload
         },
+        deleteBlog(state, action) {
+            const id = action.payload
+            return state.filter((n) => n.id !== id)
+        },
     },
 })
 
-export const { addLike, appendBlog, setBlogs } = blogSlice.actions
+export const { addLike, appendBlog, setBlogs, deleteBlog } = blogSlice.actions
 
 // With Redux Thunk it is possible to implement action creators,
 // which return a function instead of an object.
@@ -89,9 +93,9 @@ export const initializeBlogs = () => {
     }
 }
 
-export const addNew = (input) => {
+export const addNew = (blogObject) => {
     return async (dispatch) => {
-        const newAnecdote = await blogService.createNew(input)
+        const newAnecdote = await blogService.createNew(blogObject)
         dispatch(appendBlog(newAnecdote))
     }
 }
@@ -102,6 +106,14 @@ export const updateLikes = (id) => {
         const updatedObj = { ...blogToLike, likes: blogToLike.likes + 1 }
         await blogService.update(updatedObj)
         dispatch(addLike(updatedObj))
+    }
+}
+
+export const removeBlog = (id) => {
+    return async (dispatch) => {
+        const updateBlogs = await blogService.remove(id)
+        console.log('updateBlogs: ', updateBlogs)
+        dispatch(deleteBlog(id))
     }
 }
 

@@ -7,7 +7,7 @@ import LoginForm from './components/LoginForm'
 import BlogForm from './components/BlogForm'
 import { useSelector, useDispatch } from 'react-redux'
 import { setMessage } from './reducers/notificationReducer'
-import { initializeBlogs, setBlogs } from './reducers/blogReducer'
+import { initializeBlogs, setBlogs, removeBlog } from './reducers/blogReducer'
 
 const App = () => {
     // const [message, setMessage] = useState(null)
@@ -27,7 +27,7 @@ const App = () => {
     // }, [])
     useEffect(() => {
         dispatch(initializeBlogs())
-    })
+    }, [dispatch])
 
     useEffect(() => {
         const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser')
@@ -131,19 +131,33 @@ const App = () => {
         })
     }
 
+    // const removeBlogof = (id) => {
+    //     const blog = blogs.find((blog) => blog.id === id)
+    //     if (window.confirm(`Delete ${blog.title} ?`)) {
+    //         blogService
+    //             .remove(id)
+    //             .then(setBlogs(blogs.filter((blog) => blog.id !== id)))
+    //             .then(
+    //                 dispatch(
+    //                     setMessage(
+    //                         `Remove blog ${blog.title} by ${blog.author}`
+    //                     )
+    //                 )
+    //             )
+    //         setTimeout(() => {
+    //             dispatch(setMessage(null))
+    //         }, 5000)
+    //     }
+    // }
+
     const removeBlogof = (id) => {
         const blog = blogs.find((blog) => blog.id === id)
         if (window.confirm(`Delete ${blog.title} ?`)) {
-            blogService
-                .remove(id)
-                .then(setBlogs(blogs.filter((blog) => blog.id !== id)))
-                .then(
-                    dispatch(
-                        setMessage(
-                            `Remove blog ${blog.title} by ${blog.author}`
-                        )
-                    )
+            dispatch(removeBlog(id)).then(
+                dispatch(
+                    setMessage(`Remove blog ${blog.title} by ${blog.author}`)
                 )
+            )
             setTimeout(() => {
                 dispatch(setMessage(null))
             }, 5000)
