@@ -65,41 +65,7 @@ const App = () => {
         window.localStorage.removeItem('loggedBlogappUser')
     }
 
-    const addBlog = (blogObject) => {
-        dispatch(addNew(blogObject))
-    }
-
-    const addBlogNotification = (blogObject) => {
-        dispatch(
-            setMessage(`a new blog ${blogObject.title} by ${blogObject.author}`)
-        )
-        setTimeout(() => {
-            dispatch(setMessage(null))
-        }, 5000)
-    }
-
-    const updateLikes = (id) => {
-        dispatch(moreLike(id))
-    }
-
-    const removeBlogof = (id) => {
-        const blog = blogs.find((blog) => blog.id === id)
-        if (window.confirm(`Delete ${blog.title} ?`)) {
-            dispatch(removeBlog(id)).then(
-                dispatch(
-                    setMessage(`Remove blog ${blog.title} by ${blog.author}`)
-                )
-            )
-            setTimeout(() => {
-                dispatch(setMessage(null))
-            }, 5000)
-        }
-    }
-
-    const SortBlogbyLikes = (a, b) => {
-        return b.likes - a.likes
-    }
-    const LoginForms = () => (
+    const loginForm = () => (
         <>
             <h2>log in to application</h2>
             <div style={{ display: loginVisible ? 'none' : '' }}>
@@ -136,6 +102,42 @@ const App = () => {
             </div>
         </>
     )
+
+    const addBlog = (blogObject) => {
+        dispatch(addNew(blogObject))
+    }
+
+    const addBlogNotification = (blogObject) => {
+        dispatch(
+            setMessage(`a new blog ${blogObject.title} by ${blogObject.author}`)
+        )
+        setTimeout(() => {
+            dispatch(setMessage(null))
+        }, 5000)
+    }
+
+    const updateLikes = (id) => {
+        dispatch(moreLike(id))
+    }
+
+    const removeBlogof = (id) => {
+        const blog = blogs.find((blog) => blog.id === id)
+        if (window.confirm(`Delete ${blog.title} ?`)) {
+            dispatch(removeBlog(id)).then(
+                dispatch(
+                    setMessage(`Remove blog ${blog.title} by ${blog.author}`)
+                )
+            )
+            setTimeout(() => {
+                dispatch(setMessage(null))
+            }, 5000)
+        }
+    }
+
+    const SortBlogbyLikes = (a, b) => {
+        return b.likes - a.likes
+    }
+
     const BlogsList = () => (
         <>
             <h2>blogs</h2>
@@ -149,6 +151,7 @@ const App = () => {
                     fontSize: 20,
                 }}
             />
+
             <h3> {user.name} logged in</h3>
             <button onClick={handleLogout}>log out</button>
             <br />
@@ -179,7 +182,9 @@ const App = () => {
 
     return (
         <div>
-            {user === null ? LoginForms() : BlogsList()}
+            {user === null && loginForm()}
+            {user !== null && BlogsList()}
+
             <br />
         </div>
     )
