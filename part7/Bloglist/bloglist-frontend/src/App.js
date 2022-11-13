@@ -93,11 +93,6 @@ const App = () => {
         </>
     )
 
-    // const addBlog = (blogObject) => {
-    //     blogService.createNew(blogObject).then((returnedBlog) => {
-    //         setBlogs(blogs.concat(returnedBlog))
-    //     })
-    // }
     const addBlog = (blogObject) => {
         dispatch(addNew(blogObject))
     }
@@ -111,37 +106,9 @@ const App = () => {
         }, 5000)
     }
 
-    // const updateLikes = (id) => {
-    //     const blog = blogs.find((blog) => blog.id === id)
-    //     const changedBlog = { ...blog, likes: blog.likes + 1 }
-    //     blogService.update(id, changedBlog).then((returnedBlog) => {
-    //         setBlogs(
-    //             blogs.map((blog) => (blog.id !== id ? blog : returnedBlog))
-    //         )
-    //     })
-    // }
     const updateLikes = (id) => {
         dispatch(moreLike(id))
     }
-
-    // const removeBlogof = (id) => {
-    //     const blog = blogs.find((blog) => blog.id === id)
-    //     if (window.confirm(`Delete ${blog.title} ?`)) {
-    //         blogService
-    //             .remove(id)
-    //             .then(setBlogs(blogs.filter((blog) => blog.id !== id)))
-    //             .then(
-    //                 dispatch(
-    //                     setMessage(
-    //                         `Remove blog ${blog.title} by ${blog.author}`
-    //                     )
-    //                 )
-    //             )
-    //         setTimeout(() => {
-    //             dispatch(setMessage(null))
-    //         }, 5000)
-    //     }
-    // }
 
     const removeBlogof = (id) => {
         const blog = blogs.find((blog) => blog.id === id)
