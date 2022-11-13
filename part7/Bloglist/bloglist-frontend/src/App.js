@@ -7,7 +7,12 @@ import LoginForm from './components/LoginForm'
 import BlogForm from './components/BlogForm'
 import { useSelector, useDispatch } from 'react-redux'
 import { setMessage } from './reducers/notificationReducer'
-import { initializeBlogs, setBlogs, removeBlog } from './reducers/blogReducer'
+import {
+    initializeBlogs,
+    setBlogs,
+    removeBlog,
+    moreLike,
+} from './reducers/blogReducer'
 
 const App = () => {
     // const [message, setMessage] = useState(null)
@@ -120,15 +125,17 @@ const App = () => {
         }, 5000)
     }
 
+    // const updateLikes = (id) => {
+    //     const blog = blogs.find((blog) => blog.id === id)
+    //     const changedBlog = { ...blog, likes: blog.likes + 1 }
+    //     blogService.update(id, changedBlog).then((returnedBlog) => {
+    //         setBlogs(
+    //             blogs.map((blog) => (blog.id !== id ? blog : returnedBlog))
+    //         )
+    //     })
+    // }
     const updateLikes = (id) => {
-        const blog = blogs.find((blog) => blog.id === id)
-        const changedBlog = { ...blog, likes: blog.likes + 1 }
-
-        blogService.update(id, changedBlog).then((returnedBlog) => {
-            setBlogs(
-                blogs.map((blog) => (blog.id !== id ? blog : returnedBlog))
-            )
-        })
+        dispatch(moreLike(id))
     }
 
     // const removeBlogof = (id) => {

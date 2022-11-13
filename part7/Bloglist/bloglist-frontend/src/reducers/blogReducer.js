@@ -100,7 +100,7 @@ export const addNew = (blogObject) => {
     }
 }
 
-export const updateLikes = (id) => {
+export const moreLike = (id) => {
     return async (dispatch) => {
         const blogToLike = await blogService.findOne(id)
         const updatedObj = { ...blogToLike, likes: blogToLike.likes + 1 }
