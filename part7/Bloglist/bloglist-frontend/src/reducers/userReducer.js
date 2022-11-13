@@ -40,10 +40,10 @@ export const loggedUser = () => {
     return async (dispatch) => {
         const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser')
         if (loggedUserJSON) {
+            console.log('loggedUserJSON: ', loggedUserJSON)
             const user = JSON.parse(loggedUserJSON)
             dispatch(setUser(user))
-            console.log(user)
-            await blogService.setToken(user.token)
+            blogService.setToken(user.token)
         }
     }
 }

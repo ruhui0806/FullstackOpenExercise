@@ -14,21 +14,22 @@ import {
     moreLike,
     addNew,
 } from './reducers/blogReducer'
+// import { loggedUser } from './reducers/userReducer'
 
-// import { setUser, loggedUser, loginUser } from './reducers/userReducer'
+import { setUser, loggedUser, loginUser } from './reducers/userReducer'
 const App = () => {
     // const [message, setMessage] = useState(null)
     // const [blogs, setBlogs] = useState([])
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-    const [user, setUser] = useState(null)
+    // const [user, setUser] = useState(null)
     const [loginVisible, setLoginVisible] = useState(false)
     const [blogVisible, setBlogVisible] = useState(false)
 
     const dispatch = useDispatch()
     const blogs = useSelector((state) => state.blogs)
     const message = useSelector((state) => state.message)
-    // const user = useSelector((state) => state.user)
+    const user = useSelector((state) => state.user)
 
     // useEffect(() => {
     //     dispatch(setUser())
@@ -43,29 +44,39 @@ const App = () => {
 
     // useEffect(() => {
     //     const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser')
-    //     console.log('loggedUserJSON: ', loggedUserJSON)
     //     if (loggedUserJSON) {
-    //         console.log('-->', loggedUserJSON)
+    //         console.log('loggedUserJSON: ', loggedUserJSON)
     //         const user = JSON.parse(loggedUserJSON)
-    //         console.log('-->', user)
     //         setUser(user)
     //         blogService.setToken(user.token)
     //     }
     // }, [])
     useEffect(() => {
-        const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser')
-        if (loggedUserJSON) {
-            console.log('loggedUserJSON: ', loggedUserJSON)
-            const user = JSON.parse(loggedUserJSON)
-            setUser(user)
-            blogService.setToken(user.token)
-        }
-    }, [])
+        dispatch(loggedUser())
+    }, [dispatch])
 
-    // useEffect(() => {
-    //     dispatch(loggedUser())
-    // }, [dispatch])
-
+    // const handleLogin = async (event) => {
+    //     event.preventDefault()
+    //     try {
+    //         const user = await loginService.login({
+    //             username,
+    //             password,
+    //         })
+    //         setUser(user)
+    //         blogService.setToken(user.token)
+    //         window.localStorage.setItem(
+    //             'loggedBlogappUser',
+    //             JSON.stringify(user)
+    //         )
+    //         setUsername('')
+    //         setPassword('')
+    //     } catch (exception) {
+    //         dispatch(setMessage('Wrong username or password'))
+    //         setTimeout(() => {
+    //             dispatch(setMessage(null))
+    //         }, 5000)
+    //     }
+    // }
     const handleLogin = async (event) => {
         event.preventDefault()
         try {
@@ -73,7 +84,7 @@ const App = () => {
                 username,
                 password,
             })
-            setUser(user)
+            dispatch(setUser(user))
             blogService.setToken(user.token)
             window.localStorage.setItem(
                 'loggedBlogappUser',
@@ -88,22 +99,9 @@ const App = () => {
             }, 5000)
         }
     }
-    // const handleLogin = async (event) => {
-    //     event.preventDefault()
-    //     try {
-    //         dispatch(loginUser({ username, password }))
-    //         setUsername('')
-    //         setPassword('')
-    //     } catch (exception) {
-    //         dispatch(setMessage('Wrong username or password'))
-    //         setTimeout(() => {
-    //             dispatch(setMessage(null))
-    //         }, 5000)
-    //     }
-    // }
 
     const handleLogout = () => {
-        setUser(null)
+        dispatch(setUser(null))
         window.localStorage.removeItem('loggedBlogappUser')
     }
 
