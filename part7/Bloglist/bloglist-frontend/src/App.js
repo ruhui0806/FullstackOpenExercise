@@ -159,7 +159,6 @@ const App = () => {
             <p> {user.name} logged in</p>
             <button onClick={handleLogout}>log out</button>
             <br />
-
             <div style={{ display: blogVisible ? 'none' : '' }}>
                 <button onClick={() => setBlogVisible(true)}>new blog</button>
             </div>
