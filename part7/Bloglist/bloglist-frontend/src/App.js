@@ -179,35 +179,44 @@ const App = () => {
         </>
     )
 
+    const match = useMatch('/users/:id')
+
+    const matchedUser = match
+        ? usersList.find(
+              (matchedUser) =>
+                  String(matchedUser.id) === String(match.params.id)
+          )
+        : null
+    console.log(usersList)
+    console.log(matchedUser)
     return (
-        <Router>
+        <div>
+            <h3>blogs</h3>
             <div>
-                <>
-                    <h3>blogs</h3>
-                </>
-                <div>
-                    <Link to="/users"> Users</Link>
-                    <Link to="/"> Home</Link>
-                </div>
-                <Routes>
-                    <Route
-                        path="/users"
-                        element={
-                            <Users
-                                login={login}
-                                handleLogout={handleLogout}
-                                usersList={usersList}
-                            />
-                        }
-                    />
-                    <Route path="/users/:id" element={<User />} />
-                    <Route
-                        path="/"
-                        element={login === null ? LoginForms() : BlogsList()}
-                    />
-                </Routes>
+                <Link to="/users"> Users</Link>
+                <Link to="/"> Home</Link>
             </div>
-        </Router>
+            <Routes>
+                <Route
+                    path="/users"
+                    element={
+                        <Users
+                            login={login}
+                            handleLogout={handleLogout}
+                            usersList={usersList}
+                        />
+                    }
+                />
+                <Route
+                    path="/users/:id"
+                    element={<User user={matchedUser} />}
+                />
+                <Route
+                    path="/"
+                    element={login === null ? LoginForms() : BlogsList()}
+                />
+            </Routes>
+        </div>
     )
 }
 
