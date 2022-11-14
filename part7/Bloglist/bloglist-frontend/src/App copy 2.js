@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Blog from './components/Blog'
 import blogService from './services/blogs'
-import userService from './services/users'
 import loginService from './services/login'
 import Notification from './components/Notification'
 import LoginForm from './components/LoginForm'
@@ -15,7 +14,7 @@ import {
     moreLike,
     addNew,
 } from './reducers/blogReducer'
-import { setUser, logOut, loggedUser, loginUser } from './reducers/loginReducer'
+import { setUser, logOut, loggedUser, loginUser } from './reducers/userReducer'
 import {
     BrowserRouter as Router,
     Routes,
@@ -37,7 +36,7 @@ const App = () => {
     const dispatch = useDispatch()
     const blogs = useSelector((state) => state.blogs)
     const message = useSelector((state) => state.message)
-    const user = useSelector((state) => state.login)
+    const user = useSelector((state) => state.user)
 
     useEffect(() => {
         dispatch(initializeBlogs())
