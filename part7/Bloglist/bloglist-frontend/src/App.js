@@ -125,8 +125,8 @@ const App = () => {
                     onSubmit={handleLogin}
                     username={username}
                     password={password}
-                    handleUsernameChange={({ target }) =>
-                        setUsername(target.value)
+                    handleUsernameChange={(event) =>
+                        setUsername(event.target.value)
                     }
                     handlePasswordChange={({ target }) =>
                         setPassword(target.value)
@@ -138,7 +138,7 @@ const App = () => {
     )
     const BlogsList = () => (
         <>
-            <h2>blogs</h2>
+            <h3>blogs</h3>
             <Notification
                 message={message}
                 style={{
@@ -176,12 +176,33 @@ const App = () => {
             ))}
         </>
     )
+    const Users = () => {
+        return (
+            <div>
+                <h3>Users</h3>
+            </div>
+        )
+    }
 
     return (
-        <div>
-            {user === null ? LoginForms() : BlogsList()}
-            <br />
-        </div>
+        <Router>
+            <div>
+                <div>
+                    <h2>blog Lists</h2>
+                </div>
+                <div>
+                    <Link to="/users"> Users</Link>
+                    <Link to="/"> Home</Link>
+                </div>
+                <Routes>
+                    <Route path="/users" element={<Users />} />
+                    <Route
+                        path="/"
+                        element={user === null ? LoginForms() : BlogsList()}
+                    />
+                </Routes>
+            </div>
+        </Router>
     )
 }
 
