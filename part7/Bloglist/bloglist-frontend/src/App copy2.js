@@ -14,7 +14,7 @@ import {
     moreLike,
     addNew,
 } from './reducers/blogReducer'
-import { setUser, logOut, loggedUser, loginUser } from './reducers/userReducer'
+import { setUser, logOut, loggedUser, loginUser } from './reducers/loginReducer'
 import {
     BrowserRouter as Router,
     Routes,
@@ -36,7 +36,7 @@ const App = () => {
     const dispatch = useDispatch()
     const blogs = useSelector((state) => state.blogs)
     const message = useSelector((state) => state.message)
-    const user = useSelector((state) => state.user)
+    const loginUser = useSelector((state) => state.login)
 
     useEffect(() => {
         dispatch(initializeBlogs())
@@ -149,7 +149,7 @@ const App = () => {
                     fontSize: 20,
                 }}
             />
-            <h3> {user.name} logged in</h3>
+            <h3> {loginUser.name} logged in</h3>
             <button onClick={handleLogout}>log out</button>
             <br />
 
@@ -198,7 +198,9 @@ const App = () => {
                     <Route path="/users" element={<Users />} />
                     <Route
                         path="/"
-                        element={user === null ? LoginForms() : BlogsList()}
+                        element={
+                            loginUser === null ? LoginForms() : BlogsList()
+                        }
                     />
                 </Routes>
             </div>

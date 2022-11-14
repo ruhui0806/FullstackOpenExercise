@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Table from 'react-bootstrap/Table'
 import Blog from './components/Blog'
-import blogService from './services/blogs'
-import userService from './services/users'
-import loginService from './services/login'
 import Notification from './components/Notification'
 import LoginForm from './components/LoginForm'
 import BlogForm from './components/BlogForm'
@@ -28,6 +25,8 @@ import {
     useMatch,
 } from 'react-router-dom'
 import { setUsers, initializeUsers } from './reducers/usersReducer'
+import User from './components/User'
+import Users from './components/Users'
 
 const App = () => {
     const [username, setUsername] = useState('')
@@ -35,31 +34,45 @@ const App = () => {
 
     const [loginVisible, setLoginVisible] = useState(false)
     const [blogVisible, setBlogVisible] = useState(false)
+    const [style, setStyle] = useState(null)
 
     const dispatch = useDispatch()
     const blogs = useSelector((state) => state.blogs)
     const message = useSelector((state) => state.message)
-    const user = useSelector((state) => state.login)
+    const login = useSelector((state) => state.login)
     const usersList = useSelector((state) => state.users)
 
     useEffect(() => {
         dispatch(initializeBlogs())
-    }, [dispatch])
-
-    useEffect(() => {
         dispatch(initializeUsers())
-    }, [dispatch])
-
-    useEffect(() => {
         dispatch(loggedUser())
     }, [dispatch])
 
+    const styleRed = {
+        color: 'red',
+        borderStyle: 'solid',
+        borderColor: 'red',
+        background: 'lightgray',
+        fontSize: 20,
+    }
+    const styleGreen = {
+        color: 'green',
+        borderStyle: 'solid',
+        borderColor: 'green',
+        background: 'lightgray',
+        fontSize: 20,
+    }
     const handleLogin = async (event) => {
         event.preventDefault()
         try {
             dispatch(loginUser({ username, password }))
             setUsername('')
             setPassword('')
+            setStyle(styleGreen)
+            dispatch(setMessage('successfully'))
+            setTimeout(() => {
+                dispatch(setMessage(null))
+            }, 5000)
         } catch (exception) {
             dispatch(setMessage('Wrong username or password'))
             setTimeout(() => {
@@ -98,6 +111,7 @@ const App = () => {
                     setMessage(`Remove blog ${blog.title} by ${blog.author}`)
                 )
             )
+            setStyle(styleGreen)
             setTimeout(() => {
                 dispatch(setMessage(null))
             }, 5000)
@@ -118,16 +132,7 @@ const App = () => {
                     Click to login
                 </button>
             </div>
-            <Notification
-                message={message}
-                style={{
-                    color: 'red',
-                    borderStyle: 'solid',
-                    borderColor: 'red',
-                    background: 'lightgray',
-                    fontSize: 20,
-                }}
-            />
+            <Notification message={message} style={style} />
             <div style={{ display: loginVisible ? '' : 'none' }}>
                 <LoginForm
                     onSubmit={handleLogin}
@@ -146,17 +151,8 @@ const App = () => {
     )
     const BlogsList = () => (
         <>
-            <Notification
-                message={message}
-                style={{
-                    color: 'green',
-                    borderStyle: 'solid',
-                    borderColor: 'green',
-                    background: 'lightgray',
-                    fontSize: 20,
-                }}
-            />
-            <p> {user.name} logged in</p>
+            <Notification message={message} style={style} />
+            <p> {login.name} logged in</p>
             <button onClick={handleLogout}>log out</button>
             <br />
             <div style={{ display: blogVisible ? 'none' : '' }}>
@@ -182,55 +178,32 @@ const App = () => {
             ))}
         </>
     )
-    const Users = () => (
-        <div>
-            <p> {user.name} logged in</p>
-            <button onClick={handleLogout}>log out</button>
-            <h3>Users</h3>
-            <Table striped bordered hover>
-                <thead>
-                    <tr>
-                        <th>usernames</th>
-                        <th>blogs created</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {usersList.map((itemUser) => (
-                        <tr key={itemUser.id}>
-                            <td>{itemUser.name}</td>
-                            <td>{itemUser.blogs.length}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </Table>
-        </div>
-    )
 
     return (
         <Router>
             <div>
                 <>
                     <h3>blogs</h3>
-                    <Notification
-                        message={message}
-                        style={{
-                            color: 'green',
-                            borderStyle: 'solid',
-                            borderColor: 'green',
-                            background: 'lightgray',
-                            fontSize: 20,
-                        }}
-                    />
                 </>
                 <div>
                     <Link to="/users"> Users</Link>
                     <Link to="/"> Home</Link>
                 </div>
                 <Routes>
-                    <Route path="/users" element={<Users />} />
+                    <Route
+                        path="/users"
+                        element={
+                            <Users
+                                login={login}
+                                handleLogout={handleLogout}
+                                usersList={usersList}
+                            />
+                        }
+                    />
+                    <Route path="/users/:id" element={<User />} />
                     <Route
                         path="/"
-                        element={user === null ? LoginForms() : BlogsList()}
+                        element={login === null ? LoginForms() : BlogsList()}
                     />
                 </Routes>
             </div>
