@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import Table from 'react-bootstrap/Table'
 import Blog from './components/Blog'
 import blogService from './services/blogs'
 import userService from './services/users'
@@ -145,7 +146,6 @@ const App = () => {
     )
     const BlogsList = () => (
         <>
-            <h3>blogs</h3>
             <Notification
                 message={message}
                 style={{
@@ -156,7 +156,7 @@ const App = () => {
                     fontSize: 20,
                 }}
             />
-            <h3> {user.name} logged in</h3>
+            <p> {user.name} logged in</p>
             <button onClick={handleLogout}>log out</button>
             <br />
 
@@ -183,28 +183,46 @@ const App = () => {
             ))}
         </>
     )
-    const Users = () => {
-        return (
-            <div>
-                <h3>Users</h3>
-                {usersList.map((itemUser) => (
-                    <div key={itemUser.id}>
-                        <ul>
-                            {itemUser.name} {'    '}
-                            {itemUser.blogs.length}
-                        </ul>
-                    </div>
-                ))}
-            </div>
-        )
-    }
+    const Users = () => (
+        <div>
+            <p> {user.name} logged in</p>
+            <button onClick={handleLogout}>log out</button>
+            <h3>Users</h3>
+            <Table striped bordered hover>
+                <thead>
+                    <tr>
+                        <th>usernames</th>
+                        <th>blogs created</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {usersList.map((itemUser) => (
+                        <tr key={itemUser.id}>
+                            <td>{itemUser.name}</td>
+                            <td>{itemUser.blogs.length}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </Table>
+        </div>
+    )
 
     return (
         <Router>
             <div>
-                <div>
-                    <h2>blog Lists</h2>
-                </div>
+                <>
+                    <h3>blogs</h3>
+                    <Notification
+                        message={message}
+                        style={{
+                            color: 'green',
+                            borderStyle: 'solid',
+                            borderColor: 'green',
+                            background: 'lightgray',
+                            fontSize: 20,
+                        }}
+                    />
+                </>
                 <div>
                     <Link to="/users"> Users</Link>
                     <Link to="/"> Home</Link>
