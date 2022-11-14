@@ -26,6 +26,7 @@ import {
     useNavigate,
     useMatch,
 } from 'react-router-dom'
+import { setUsers, initializeUsers } from './reducers/usersReducer'
 
 const App = () => {
     const [username, setUsername] = useState('')
@@ -38,9 +39,14 @@ const App = () => {
     const blogs = useSelector((state) => state.blogs)
     const message = useSelector((state) => state.message)
     const user = useSelector((state) => state.login)
+    const usersList = useSelector((state) => state.users)
 
     useEffect(() => {
         dispatch(initializeBlogs())
+    }, [dispatch])
+
+    useEffect(() => {
+        dispatch(initializeUsers())
     }, [dispatch])
 
     useEffect(() => {
@@ -181,6 +187,14 @@ const App = () => {
         return (
             <div>
                 <h3>Users</h3>
+                {usersList.map((itemUser) => (
+                    <div key={itemUser.id}>
+                        <ul>
+                            {itemUser.name} {'    '}
+                            {itemUser.blogs.length}
+                        </ul>
+                    </div>
+                ))}
             </div>
         )
     }
