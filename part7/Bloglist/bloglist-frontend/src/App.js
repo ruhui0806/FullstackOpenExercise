@@ -149,10 +149,17 @@ const App = () => {
             </div>
         </>
     )
+    const blogStyle = {
+        paddingTop: 10,
+        paddingLeft: 2,
+        border: 'solid',
+        borderWidth: 1,
+        marginBottom: 5,
+    }
     const BlogsList = () => (
-        <>
+        <div>
             <Notification message={message} style={style} />
-            <p> {login.name} logged in</p>
+
             <button onClick={handleLogout}>log out</button>
             <br />
             <div style={{ display: blogVisible ? 'none' : '' }}>
@@ -169,32 +176,43 @@ const App = () => {
             </div>
 
             {[...blogs].sort(SortBlogbyLikes).map((blog) => (
-                <Blog
-                    key={blog.id}
-                    blog={blog}
-                    addLikes={() => updateLikes(blog.id)}
-                    removeBlog={() => removeBlogof(blog.id)}
-                />
+                <div key={blog.id} style={blogStyle}>
+                    <div>
+                        {' '}
+                        <Link to={`/blogs/${blog.id}`}>{blog.title}</Link>
+                    </div>
+                </div>
             ))}
-        </>
+        </div>
     )
 
-    const match = useMatch('/users/:id')
+    const matchU = useMatch('/users/:id')
 
-    const matchedUser = match
+    const matchedUser = matchU
         ? usersList.find(
               (matchedUser) =>
-                  String(matchedUser.id) === String(match.params.id)
+                  String(matchedUser.id) === String(matchU.params.id)
           )
         : null
     console.log(usersList)
     console.log(matchedUser)
+
+    const matchB = useMatch('/blogs/:id')
+    const matchedBlog = matchB
+        ? blogs.find(
+              (matchedBlog) =>
+                  String(matchedBlog.id) === String(matchB.params.id)
+          )
+        : null
+
     return (
         <div>
             <h3>blogs</h3>
             <div>
                 <Link to="/users"> Users</Link>
-                <Link to="/"> Home</Link>
+                <i> </i>
+                <Link to="/"> Blogs</Link>
+                {login ? <p>{login.name} logged in</p> : null}
             </div>
             <Routes>
                 <Route
@@ -210,6 +228,20 @@ const App = () => {
                 <Route
                     path="/users/:id"
                     element={<User user={matchedUser} />}
+                />
+                <Route
+                    path="/blogs/:id"
+                    element={
+                        matchedBlog ? (
+                            <Blog
+                                blog={matchedBlog}
+                                addLikes={() => updateLikes(matchedBlog.id)}
+                                removeBlog={() => removeBlogof(matchedBlog.id)}
+                            />
+                        ) : (
+                            <Navigate replace to="/" />
+                        )
+                    }
                 />
                 <Route
                     path="/"
