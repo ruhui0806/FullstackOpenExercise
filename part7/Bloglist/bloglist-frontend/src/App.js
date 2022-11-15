@@ -160,7 +160,7 @@ const App = () => {
         <div>
             <Notification message={message} style={style} />
 
-            <button onClick={handleLogout}>log out</button>
+            {/* <button onClick={handleLogout}>log out</button> */}
             <br />
             <div style={{ display: blogVisible ? 'none' : '' }}>
                 <button onClick={() => setBlogVisible(true)}>new blog</button>
@@ -194,8 +194,8 @@ const App = () => {
                   String(matchedUser.id) === String(matchU.params.id)
           )
         : null
-    console.log(usersList)
-    console.log(matchedUser)
+    // console.log(usersList)
+    // console.log(matchedUser)
 
     const matchB = useMatch('/blogs/:id')
     const matchedBlog = matchB
@@ -212,7 +212,13 @@ const App = () => {
                 <Link to="/users"> Users</Link>
                 <i> </i>
                 <Link to="/"> Blogs</Link>
-                {login ? <p>{login.name} logged in</p> : null}
+                {login ? (
+                    <em>
+                        {' '}
+                        {login.name} logged in
+                        <button onClick={handleLogout}>log out</button>
+                    </em>
+                ) : null}
             </div>
             <Routes>
                 <Route
