@@ -11,9 +11,6 @@ import {
     useMatch,
 } from 'react-router-dom'
 const Users = ({ login, handleLogout, usersList }) => {
-    // if (!usersList[0]) {
-    //     return null
-    // }
     return (
         <div>
             <p> {login.name} logged in</p>

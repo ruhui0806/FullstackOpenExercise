@@ -19,11 +19,6 @@ const User = ({ user }) => {
         <div>
             <h3> {user.name}</h3>
             <Table striped bordered hover>
-                {/* {user.blogs.map((blog) => (
-                <div key={blog.id}>
-                    <li>{blog}</li>
-                </div>
-            ))} */}
                 <thead>
                     <tr>
                         <th>added blogs</th>
@@ -43,11 +38,5 @@ const User = ({ user }) => {
         </div>
     )
 }
-// const User = () => (
-//     <div>
-//         <h4>This is special route for User Route</h4>
-//         <p>added blogs</p>
-//     </div>
-// )
 
 export default User
