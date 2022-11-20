@@ -14,7 +14,7 @@ const Users = ({ login, handleLogout, usersList }) => {
     return (
         <div>
             <p> {login.name} logged in</p>
-            <button onClick={handleLogout}>log out</button>
+            {/* <button onClick={handleLogout}>log out</button> */}
             <h3>Users</h3>
             <Table striped bordered hover>
                 <thead>
