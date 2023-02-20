@@ -17,3 +17,5 @@ Process diary:
    17.02.2023: part9-c: re-download the patientor exercises material due to the update of the course
    
    18.02.2023: part9-c: exercises 9.10-9.13 finished. Move to part9-d on part9_d branch
+   
+   20.02.2023： exercises 9。14 finished
