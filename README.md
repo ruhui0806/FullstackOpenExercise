@@ -20,4 +20,4 @@ Process diary:
    
    20.02.2023: part9-d: exercises 9.14 finished
    
-   21.02.2023: part9-d: exercises 9.15 finished
+   21.02.2023: part9-d: exercises 9.15-16 finished
