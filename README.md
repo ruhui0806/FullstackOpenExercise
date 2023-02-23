@@ -20,6 +20,6 @@ Process diary:
    
    20.02.2023: part9-d: exercises 9.14 finished
    
-   21.02.2023: part9-d: exercises 9.15-16 finished
+   21.02.2023: part9-d: exercises 9.15 finished
    
-   22.02.2023：
+   22.02.2023：part9-d: exercises 9.16-19 finished. Move to part9-e on part9_e branch
