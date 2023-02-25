@@ -1,5 +1,8 @@
 # FullstackOpenExercise
 Repository for submitting exercise
+
+process before 2023 is omitted.
+
 Process diary:
 
    29.01.2023: start working on Typescript project (part9)
@@ -23,3 +26,4 @@ Process diary:
    21.02.2023: part9-d: exercises 9.15 finished
    
    23.02.2023：part9-d: exercises 9.16-19 finished. Move to part9-e on part9_e branch in the course repo
+   
