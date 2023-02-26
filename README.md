@@ -3,7 +3,7 @@ Repository for submitting exercise
 
 process before 2023 is omitted.
 
-Process diary in 2023:
+Process diary for 2023:
 
    29.01.2023: start working on Typescript project (part9)
    
