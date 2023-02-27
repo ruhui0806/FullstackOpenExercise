@@ -25,5 +25,7 @@ Process diary for 2023:
    
    21.02.2023: part9-d: exercises 9.15 finished
    
-   23.02.2023：part9-d: exercises 9.16-19 finished. Move to part9-e on part9_e branch in the course repo
+   23.02.2023：part9-d: exercises 9.16-19 finished. Move to part9-e on part9_d branch in the course repo
+   
+   27.02.2023: part9-e: exercise 9.20 finished. Working on part9_d branch. Move to part9_e in the following exercises.
    
