@@ -31,5 +31,5 @@ Process diary for 2023:
    
    27.02.2023: part9-e: exercise 9.21 finished. Working on part9_e branch. 
    
-   28.02.2023: part9-e: exercise 9.22-9.23 finished. Working on part9_e branch. 
+   28.02.2023: part9-e: exercise 9.22-9.24 finished. Working on part9_e branch. 
    
