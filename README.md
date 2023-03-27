@@ -35,5 +35,5 @@ Process diary for 2023:
    
    01.03.2023-10.03.2023: exercise 9.26-9.27 finnished. Working on part9_e branch.
    
-   10.03.2023-20.03.2023：part9-e: Currently working on a more urgent project. exercises 9.28 unfinished. on part9_e branch. 
+   10.03.2023-current：part9-e: Currently working on a more urgent project. exercises 9.28 unfinished. on part9_e branch. 
    
