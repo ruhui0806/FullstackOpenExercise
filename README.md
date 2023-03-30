@@ -36,4 +36,4 @@ Process diary for 2023:
    01.03.2023: working on 10.03.2023: exercise 9.26-9.27 finnished. Working on part9_e branch.
    
    10.03.2023: working on current：part9-e: working on a more urgent project. exercises 9.28 unfinished. on part9_e branch. 
-   
+   31.03.2023: migrate to the new macbook 
