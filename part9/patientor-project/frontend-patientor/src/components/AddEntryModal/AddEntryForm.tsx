@@ -9,19 +9,14 @@ import {
   Grid,
   Button,
   SelectChangeEvent,
-  ListItemText,
   Checkbox,
 } from "@mui/material";
 
 import {
-  PatientFormValues,
   Diagnosis,
   HealthCheckRating,
-  Patient,
   EntryWithoutId,
   EntryTypes,
-  SickLeave,
-  Discharge,
 } from "../../types";
 
 interface Props {
@@ -50,14 +45,6 @@ const entryTypesOptions: entryType[] = Object.values(EntryTypes).map((v) => ({
   value: v,
   label: v.toString(),
 }));
-// const entryTypesOptions: Array<string> = Object.values(EntryTypes).map((v) =>
-//   v.toString()
-// );
-// const entryTypesOptions: Array<string> = [
-//   "HealthCheck",
-//   "OccupationalHealthcare",
-//   "Hospital",
-// ];
 
 const isDate = (date: string): boolean => {
   return Boolean(Date.parse(date));
@@ -83,6 +70,7 @@ const AddEntryForm = ({
   const [dischargeDate, setDischargeDate] = useState("");
   const [dischargeCriteria, setDischargeCriteria] = React.useState<string>("");
   const [diagnosisValue, setDiagnosisValue] = React.useState<string[]>([]);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [errorMessage, setErrorMessage] = useState("");
   const onEntryTypeChange = (event: SelectChangeEvent<string>) => {
     event.preventDefault();
@@ -285,17 +273,7 @@ const AddEntryForm = ({
                   fullWidth
                   value={sickLeaveStartDate}
                   onChange={({ target }) => setSickLeaveStartDate(target.value)}
-                >
-                  {/* <input
-                type="date"
-                // min={(
-                //     new Date().getMonth() - 12
-                // ).toLocaleString('en-CA')}
-                max={sickLeaveStartDate}
-                value={sickLeaveStartDate}
-                onChange={({ target }) => setSickLeaveStartDate(target.value)}
-              /> */}
-                </TextField>
+                ></TextField>
                 <InputLabel style={{ marginTop: 20 }}>
                   Sick leave end date
                 </InputLabel>
@@ -304,80 +282,22 @@ const AddEntryForm = ({
                   type="date"
                   value={sickLeaveEndDate}
                   onChange={({ target }) => setSickLeaveEndDate(target.value)}
-                >
-                  {/* <input
-                                type="date"
-                                // min={(
-                                //     new Date().getMonth() - 12
-                                // ).toLocaleString('en-CA')}
-                                max={sickLeaveEndDate}
-                                value={sickLeaveEndDate}
-                                onChange={({ target }) =>
-                                    setSickLeaveEndDate(target.value)
-                                }
-                            /> */}
-                </TextField>
+                ></TextField>
               </div>
             )}
-
-            {/* <TextField
-                            // label="sick leave start date"
-                            // placeholder="sick leave start date"
-                            // fullWidth
-                            value={sickLeaveStartDate}
-                            onChange={({ target }) =>
-                                setSickLeaveStartDate(target.value)
-                            }
-                        />
-                        <input
-                            type="date"
-                            min={(new Date().getMonth() - 12).toLocaleString(
-                                'en-CA'
-                            )}
-                            max={sickLeaveStartDate}
-                            placeholder="sick leave start date"
-                            value={sickLeaveStartDate}
-                            onChange={({ target }) =>
-                                setSickLeaveStartDate(target.value)
-                            }
-                        /> */}
-            {/* <TextField
-                            label="sick leave end date"
-                            placeholder="sick leave end date"
-                            fullWidth
-                            value={sickLeaveEndDate}
-                            onChange={({ target }) =>
-                                setSickLeaveEndDate(target.value)
-                            }
-                        /> */}
           </>
         )}
         {entryType === "Hospital" && (
           <>
             <InputLabel style={{ marginTop: 20 }}>Discharge</InputLabel>
-            {/* <TextField
-                            label="Discharge date"
-                            placeholder="Discharge date"
-                            fullWidth
-                            value={dischargeDate}
-                            onChange={({ target }) =>
-                                setDischargeDate(target.value)
-                            }
-                        /> */}
+
             <InputLabel style={{ marginTop: 20 }}>Discharge date</InputLabel>
             <TextField
               fullWidth
               type="date"
               value={dischargeDate}
               onChange={({ target }) => setDischargeDate(target.value)}
-            >
-              {/* <input
-                type="date"
-                min={(new Date().getMonth() - 12).toLocaleString("en-CA")}
-                max={dischargeDate}
-                
-              /> */}
-            </TextField>
+            ></TextField>
             <InputLabel style={{ marginTop: 20 }}>Criteria</InputLabel>
             <TextField
               label="criteria"

@@ -3,11 +3,6 @@ export interface Diagnosis {
   name: string;
   latin?: string;
 }
-// export interface Diagnose {
-//     code: string;
-//     name: string;
-//     latin?: string;
-// }
 export enum Gender {
   Male = "male",
   Female = "female",
@@ -76,5 +71,6 @@ export type Entry =
 type UnionOmit<T, K extends string | number | symbol> = T extends unknown
   ? Omit<T, K>
   : never;
+
 // Define Entry without the 'id' property
 export type EntryWithoutId = UnionOmit<Entry, "id">;

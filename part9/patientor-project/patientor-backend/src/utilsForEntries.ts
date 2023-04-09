@@ -16,18 +16,6 @@ const parseString = (text: unknown): string => {
   return text;
 };
 
-// const isType = (text: string): text is Type => {
-//     return Object.values(Type)
-//         .map((value) => value.toString())
-//         .includes(text.toLocaleLowerCase());
-// };
-
-// const parseType = (type: unknown): Type => {
-//     if (!isString(type) || !isType(type)) {
-//         throw new Error('Invalid entry type: ' + type);
-//     }
-//     return type;
-// };
 const isDate = (date: string): boolean => {
   return Boolean(Date.parse(date));
 };

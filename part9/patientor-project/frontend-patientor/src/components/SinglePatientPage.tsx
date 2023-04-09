@@ -21,8 +21,7 @@ import AddEntryModal from "./AddEntryModal";
 const SinglePatientInfoPage = () => {
   let { id } = useParams<Params>();
   id = id ? id : "d2773336-f723-11e9-8f0b-362b9e155667";
-  // console.log({ id });
-  // const id = 'd2773336-f723-11e9-8f0b-362b9e155667'
+
   const [patient, setPatient] = useState<Patient>();
   const [diagnoses, setDiagnoses] = useState<Diagnosis[]>();
   const [modalOpen, setModalOpen] = useState<boolean>(false);
@@ -85,10 +84,7 @@ const SinglePatientInfoPage = () => {
 
   const submitNewEntry = async (thisID: string, object: EntryWithoutId) => {
     try {
-      console.log("new entry obj in submitNewEntry without id:", object);
       const newEntry = await patientService.createEntry(thisID, object);
-      //setPatient(patient.entries.concat(object));
-      console.log("newEntry WITH id:", newEntry);
       setModalOpen(false);
       setEntries(entries && entries.concat(newEntry));
     } catch (error: unknown) {
