@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "noImplicitAny": true,
+        "noImplicitReturns": true,
+        "strictNullChecks": true,
+        "strictPropertyInitialization": true,
+        "strictBindCallApply": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noImplicitThis": true,
+        "alwaysStrict": true,
+        "esModuleInterop": true,
+        "declaration": true
+    }
+}
+//https://www.typescriptlang.org/docs/handbook/tsconfig-json.html
+//Turning on noImplicitAny TypeScript will issue an error whenever it would have inferred any
+
+//strictNullChecks: When strictNullChecks is false, null and undefined are effectively ignored by the language. This can lead to unexpected errors at runtime.
+//strictPropertyInitialization: When set to true, TypeScript will raise an error when a class property was declared but not set in the constructor.
+//strictBindCallApply: When set, TypeScript will check that the built-in methods of functions call, bind, and apply are invoked with correct argument for the underlying function
+//noImplicitThis: Raise error on ‘this’ expressions with an implied ‘any’ type
