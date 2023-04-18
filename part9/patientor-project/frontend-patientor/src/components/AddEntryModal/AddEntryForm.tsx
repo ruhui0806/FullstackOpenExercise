@@ -189,7 +189,7 @@ const AddEntryForm = ({
           fullWidth
           value={entryDate}
           onChange={(event) => setEntryDate(event.target.value)}
-        ></TextField>
+        />
         <InputLabel style={{ marginTop: 20 }}>Specialist</InputLabel>
         <TextField
           label="Specialist"
