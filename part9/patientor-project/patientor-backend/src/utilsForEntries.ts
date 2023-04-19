@@ -48,8 +48,8 @@ const parseSickLeave = (sickLeave: unknown): SickLeave => {
   }
   if ("startDate" in sickLeave && "endDate" in sickLeave) {
     const newSickLeave = {
-      startDate: parseString(sickLeave.startDate),
-      endDate: parseString(sickLeave.endDate),
+      startDate: parseDate(sickLeave.startDate),
+      endDate: parseDate(sickLeave.endDate),
     };
     if (newSickLeave.startDate < newSickLeave.endDate) {
       return newSickLeave;
