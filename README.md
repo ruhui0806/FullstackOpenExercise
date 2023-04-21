@@ -40,3 +40,5 @@ Process diary for 2023:
    31.03.2023: migrate to the new macbook 
    
    09.04.2023: working on main branch: finished all exercises in part9. Ready for submission.
+   
+   19.04.2023: update on main branch: utils for entry data.
