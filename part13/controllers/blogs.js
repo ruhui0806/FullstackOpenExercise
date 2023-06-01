@@ -6,13 +6,9 @@ const blogFinder = async (req, res, next) => {
   next();
 };
 router.get("/", async (req, res) => {
-  try {
-    const blogs = await Blog.findAll();
-    console.log(JSON.stringify(blogs));
-    res.json(blogs);
-  } catch (error) {
-    return res.status(400).json({ error });
-  }
+  const blogs = await Blog.findAll();
+  console.log(JSON.stringify(blogs));
+  res.json(blogs);
 });
 router.get("/:id", blogFinder, async (req, res) => {
   if (req.blog) {
@@ -22,11 +18,16 @@ router.get("/:id", blogFinder, async (req, res) => {
   }
 });
 router.post("/", async (req, res) => {
-  try {
-    const blog = await Blog.create(req.body);
-    res.json(blog);
-  } catch {
-    return res.status(400).json({ error });
+  const blog = await Blog.create(req.body);
+  res.json(blog);
+});
+router.put("/:id", blogFinder, async (req, res) => {
+  if (req.blog) {
+    req.blog.likes = req.body.likes;
+    await req.blog.save();
+    res.json(req.blog);
+  } else {
+    res.status(404).end();
   }
 });
 
