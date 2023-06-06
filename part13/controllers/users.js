@@ -33,7 +33,7 @@ router.get("/:id", async (req, res) => {
 router.put("/:username", async (req, res) => {
   const user = await User.findOne({ where: { username: req.params.username } });
   if (user) {
-    user.name = req.body.name;
+    user.username = req.body.username;
     await user.save();
     res.json(user);
   } else {
