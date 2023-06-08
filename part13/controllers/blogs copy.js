@@ -5,10 +5,28 @@ const blogFinder = async (req, res, next) => {
   req.blog = await Blog.findByPk(req.params.id);
   next();
 };
+// // opt1:
+// router.get("/", async (req, res) => {
+//   if (req.query.search) {
+//     const blogs = await Blog.findAll({
+//       attributes: { exclude: ["userId"] },
+//       include: { model: User, attributes: ["name", "username"] },
+//       where: { title: { [Op.substring]: req.query.search } },
+//     });
+//     res.json(blogs);
+//   } else {
+//     const blogs = await Blog.findAll({
+//       attributes: { exclude: ["userId"] },
+//       include: { model: User, attributes: ["name", "username"] },
+//     });
+//     res.json(blogs);
+//   }
+// });
 
 router.get("/", async (req, res) => {
   let where = {};
   if (req.query.search) {
+    // where.title = { [Op.substring]: req.query.search };
     where = {
       [Op.or]: [
         { title: { [Op.substring]: req.query.search } },
@@ -17,12 +35,16 @@ router.get("/", async (req, res) => {
     };
   }
   const blogs = await Blog.findAll({
-    order: [["likes", "DESC"]],
+    order: [
+      // Will escape title and validate DESC against a list of valid direction parameters
+      ["likes", "DESC"],
+    ],
     attributes: { exclude: ["userId"] },
     include: {
       model: User,
       attributes: ["name", "username"],
     },
+    // SELECT * FROM blogs WHERE title LIKE req.query.search OR author LIKE req.query.search
     where,
     // where: {
     //   [Op.or]: [
@@ -58,6 +80,8 @@ router.put("/:id", blogFinder, async (req, res) => {
 
 router.delete("/:id", blogFinder, async (req, res) => {
   const user = await User.findByPk(req.decodedToken.id);
+  // console.log(user);
+  // console.log(req.blog.userId);
   if (req.blog && user && req.blog.userId == user.id) {
     await req.blog.destroy();
     res.status(204).end();
