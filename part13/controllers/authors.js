@@ -17,3 +17,22 @@ router.get("/", async (req, res) => {
 });
 
 module.exports = router;
+
+//// The JSON returned by the route looks like the following:
+// [
+//     {
+//       author: "Jami Kousa",
+//       articles: "3",
+//       likes: "10"
+//     },
+//     {
+//       author: "Kalle Ilves",
+//       articles: "1",
+//       likes: "2"
+//     },
+//     {
+//       author: "Dan Abramov",
+//       articles: "1",
+//       likes: "4"
+//     }
+//   ]
