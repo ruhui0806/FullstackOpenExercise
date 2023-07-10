@@ -30,7 +30,8 @@ User.init(
     underscored: true,
     timestamps: true,
     createdAt: true,
-    updatedAt: "updateTimestamp",
+    updatedAt: true,
+    // updatedAt: "updateTimestamp",
     modelName: "user",
   }
 );
