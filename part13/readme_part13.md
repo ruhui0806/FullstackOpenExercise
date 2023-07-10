@@ -10,11 +10,11 @@ The postgres fly.app name is: fs-blog-app. You should use this name to start the
 
 # To Start the application:
 
-<li> Connect to the database first:
+<li> Local Connect to the database first:
 
     flyctl proxy 5432 -a fs-blog-app
 
-<li> While keeping the connection working, open another terminal and run the application:
+<li> While keeping the connection running, open another terminal and run the application:
 
     node index.js
 
@@ -23,3 +23,6 @@ Or:
     npm run dev
 
 A string field has a limit of 255 characters, whereas a text field has a character limit of 30,000 characters
+
+To read:
+https://sequelize.org/docs/v6/core-concepts/validations-and-constraints/
