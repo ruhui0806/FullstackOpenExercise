@@ -42,10 +42,15 @@ router.get("/:id", blogFinder, async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const user = await User.findByPk(req.decodedToken.id);
-  const blog = await Blog.create({ ...req.body, userId: user.id });
-  res.json(blog);
+  try {
+    const user = await User.findByPk(req.decodedToken.id);
+    const blog = await Blog.create({ ...req.body, userId: user.id });
+    res.json(blog);
+  } catch (error) {
+    return res.status(400).json({ error: error.message });
+  }
 });
+
 router.put("/:id", blogFinder, async (req, res) => {
   if (req.blog) {
     req.blog.likes = req.body.likes;

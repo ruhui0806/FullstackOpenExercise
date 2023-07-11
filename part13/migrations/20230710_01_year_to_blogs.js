@@ -1,8 +1,8 @@
 const { DataTypes, QueryInterface } = require("sequelize");
 
 module.exports = {
-  up: async ({ context: QueryInterface }) => {
-    await QueryInterface.addColumn("blogs", "year", {
+  up: async ({ context: queryInterface }) => {
+    await queryInterface.addColumn("blogs", "year", {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
@@ -11,7 +11,7 @@ module.exports = {
       },
     });
   },
-  down: async ({ context: QueryInterface }) => {
-    await QueryInterface.removeColumn("blogs", "year");
+  down: async ({ context: queryInterface }) => {
+    await queryInterface.removeColumn("blogs", "year");
   },
 };
