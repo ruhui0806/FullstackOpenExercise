@@ -5,6 +5,7 @@ module.exports = {
     await queryInterface.addColumn("users", "disabled", {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
+      allowNull: false,
     });
   },
   down: async ({ context: queryInterface }) => {
