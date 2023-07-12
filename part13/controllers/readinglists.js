@@ -10,7 +10,7 @@ router.put("/:id", async (req, res) => {
   const readinglistItem = await ReadingLists.findByPk(req.params.id);
   if (readinglistItem.userId !== req.decodedToken.id) {
     throw new Error(
-      "User can only mark the blogs in their own reading list as read."
+      "User can only mark the blogs in their own reading list as read or unread."
     );
   }
   readinglistItem.read = req.body.read;
