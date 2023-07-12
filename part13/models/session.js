@@ -3,12 +3,20 @@ const { sequelize } = require("../utils/db");
 
 class Session extends Model {}
 
-Session.init({
-  token: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    primaryKey: true,
+Session.init(
+  {
+    token: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      primaryKey: true,
+    },
   },
-});
+  {
+    sequelize,
+    underscored: true,
+    timestamps: false,
+    modelName: "session",
+  }
+);
 
 module.exports = Session;
