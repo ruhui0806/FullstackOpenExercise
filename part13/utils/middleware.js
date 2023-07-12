@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const { SECRET } = require("./config");
-
+const { User, Session } = require("../models");
 const unknownEndpoint = (request, response) => {
   response.status(404).send({ error: "unknown endpoint" });
 };
@@ -18,13 +18,33 @@ const errorHander = (error, request, response, next) => {
   next(error);
 };
 
-const tokenExtractor = (request, response, next) => {
+const tokenExtractor = async (request, response, next) => {
   const authorization = request.get("authorization");
   if (authorization && authorization.toLowerCase().startsWith("bearer")) {
     const token = authorization.substring(7);
+
+    const tokenInSession = await Session.findOne({ where: { token } });
+    if (!tokenInSession) {
+      throw new Error("Token missing or invalid");
+    }
+
+    request.token = token;
     request.decodedToken = jwt.verify(token, SECRET);
   }
   return next();
 };
 
-module.exports = { unknownEndpoint, errorHander, tokenExtractor };
+const userExtractor = async (request, response, next) => {
+  request.user = await User.findByPk(request.decodedToken.id);
+  if (request.user.disabled) {
+    throw new Error("This user account is disabled");
+  }
+  return next();
+};
+
+module.exports = {
+  unknownEndpoint,
+  errorHander,
+  tokenExtractor,
+  userExtractor,
+};
